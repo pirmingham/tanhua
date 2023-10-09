@@ -1,3 +1,9 @@
 spring:
   application:
     name: tanhua-app-server
+tanhua:
+  sms:
+    signName: 测试模板
+    templateCode: SMS_463631983
+    accessKey: LTAI5tCTNWWyzHnFK3sCnbGA
+    secret: aQltzJU4ICvPeuj9dw09RtDGvIsrsX

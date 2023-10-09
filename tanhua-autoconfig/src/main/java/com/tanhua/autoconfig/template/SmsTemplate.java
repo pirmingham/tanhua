@@ -4,21 +4,25 @@ import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponseBody;
 import com.aliyun.teaopenapi.models.Config;
+import com.tanhua.autoconfig.properties.SmsProperties;
 
 public class SmsTemplate {
 
-    public void sendSms(String phone,String code){
+    private SmsProperties smsProperties;
+
+    public SmsTemplate(SmsProperties smsProperties) {
+        this.smsProperties = smsProperties;
+    }
+
+    public void sendSms(String phone, String code){
 
         try {
-            String accessKeyId = "LTAI5tCTNWWyzHnFK3sCnbGA";
-            String accessKeySecret= "aQltzJU4ICvPeuj9dw09RtDGvIsrsX";
-
             //配置阿里云
             Config config = new Config()
                     // 您的AccessKey ID
-                    .setAccessKeyId(accessKeyId)
+                    .setAccessKeyId(smsProperties.getAccessKey())
                     // 您的AccessKey Secret
-                    .setAccessKeySecret(accessKeySecret);
+                    .setAccessKeySecret(smsProperties.getSecret());
             // 访问的域名
             config.endpoint = "dysmsapi.aliyuncs.com";
 
@@ -26,8 +30,8 @@ public class SmsTemplate {
 
             SendSmsRequest sendSmsRequest = new SendSmsRequest()
                     .setPhoneNumbers(phone)
-                    .setSignName("测试模板")
-                    .setTemplateCode("SMS_463631983")
+                    .setSignName(smsProperties.getSignName())
+                    .setTemplateCode(smsProperties.getTemplateCode())
                     .setTemplateParam("{\"code\":\""+code+"\"}");
             // 复制代码运行请自行打印 API 的返回值
             SendSmsResponse response = client.sendSms(sendSmsRequest);
