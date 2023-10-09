@@ -28,3 +28,7 @@ tanhua:
     endpoint: oss-cn-beijing.aliyuncs.com
     bucketName: pirmingham-sky-take-out
     url: https://pirmingham-sky-take-out.oss-cn-beijing.aliyuncs.com/
+  aip:
+    appId: 40566885
+    apiKey: MbsvRG7EBqg7ImVfQjRWb4ko
+    secretKey: g6qikoQNW15vwrxA4BsaYiaGOmiKq371
