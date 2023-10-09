@@ -22,3 +22,9 @@ tanhua:
     templateCode: SMS_463631983
     accessKey: LTAI5tCTNWWyzHnFK3sCnbGA
     secret: aQltzJU4ICvPeuj9dw09RtDGvIsrsX
+  oss:
+    accessKey: LTAI5tCTNWWyzHnFK3sCnbGA
+    secret: aQltzJU4ICvPeuj9dw09RtDGvIsrsX
+    endpoint: oss-cn-beijing.aliyuncs.com
+    bucketName: pirmingham-sky-take-out
+    url: https://pirmingham-sky-take-out.oss-cn-beijing.aliyuncs.com/
