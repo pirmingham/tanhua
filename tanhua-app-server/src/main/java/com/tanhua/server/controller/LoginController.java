@@ -19,4 +19,15 @@ public class LoginController {
         userService.login(phone);
         return ResponseEntity.ok(null);
     }
+    /**
+     * 验证码校验登录
+     */
+    @PostMapping("/loginVerification")
+    public ResponseEntity loginVerification(@RequestBody Map map) {
+        String mobile = (String) map.get("phone");
+        String code = (String) map.get("verificationCode");
+         Map resultMap = userService.loginVerification(mobile,code);
+
+         return ResponseEntity.ok(resultMap);
+    }
 }
