@@ -62,4 +62,9 @@ public class UserInfoService {
         return vo;
     }
 
+    //更新
+    public void update(UserInfo userInfo) {
+        userInfoApi.update(userInfo);
+    }
+
 }
