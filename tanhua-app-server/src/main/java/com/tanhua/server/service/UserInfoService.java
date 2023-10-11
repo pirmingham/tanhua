@@ -7,6 +7,9 @@ import com.tanhua.model.domain.UserInfo;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 
 @Service
@@ -25,4 +28,24 @@ public class UserInfoService {
     public void save(UserInfo userInfo) {
         userInfoApi.save(userInfo);
     }
+
+    //更新用户头像
+    public void updateHead(MultipartFile headPhoto, Long id) throws IOException {
+        //1、将图片上传到阿里云oss
+        String imageUrl = ossTemplate.upload(headPhoto.getOriginalFilename(), headPhoto.getInputStream());
+        //2、调用百度云判断是否包含人脸
+        boolean detect = aipFaceTemplate.detect(imageUrl);
+        //2.1 如果不包含人脸，抛出异常
+        if(!detect) {
+            throw new RuntimeException("不包含人脸");
+        }else{
+            //2.2 包含人脸，调用API更新
+            UserInfo userInfo = new UserInfo();
+            userInfo.setId(id);
+            userInfo.setAvatar(imageUrl);
+            userInfoApi.update(userInfo);
+        }
+    }
+
+
 }
