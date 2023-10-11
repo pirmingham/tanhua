@@ -4,7 +4,9 @@ import com.tanhua.autoconfig.template.AipFaceTemplate;
 import com.tanhua.autoconfig.template.OssTemplate;
 import com.tanhua.dubbo.api.UserInfoApi;
 import com.tanhua.model.domain.UserInfo;
+import com.tanhua.model.vo.UserInfoVo;
 import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -46,6 +48,18 @@ public class UserInfoService {
             userInfoApi.update(userInfo);
         }
     }
+    //根据id查寻
+    public UserInfoVo findById(Long id) {
+        UserInfo userInfo = userInfoApi.findById(id);
 
+        UserInfoVo vo = new UserInfoVo();
+
+        BeanUtils.copyProperties(userInfo,vo); //copy同名同类型的属性
+
+        if(userInfo.getAge() != null) {
+            vo.setAge(userInfo.getAge().toString());
+        }
+        return vo;
+    }
 
 }
