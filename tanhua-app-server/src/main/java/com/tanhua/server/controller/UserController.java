@@ -1,0 +1,39 @@
+package com.tanhua.server.controller;
+
+import com.tanhua.commons.utils.JwtUtils;
+import com.tanhua.model.domain.UserInfo;
+import com.tanhua.server.service.UserInfoService;
+import io.jsonwebtoken.Claims;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/user")
+public class UserController {
+
+    @Autowired
+    private UserInfoService userInfoService;
+
+    /**
+     * 保存用户信息
+     *   UserInfo
+     *   请求头中携带token
+     */
+    @PostMapping("/loginReginfo")
+    public ResponseEntity loginReginfo(@RequestBody UserInfo userInfo,
+                                       @RequestHeader("Authorization") String token) {
+        //1、判断token是否合法
+        boolean verifyToken = JwtUtils.verifyToken(token);
+        if(!verifyToken) {
+            return ResponseEntity.status(401).body(null);
+        }
+        //2、向userinfo中设置用户id
+        Claims claims = JwtUtils.getClaims(token);
+        Integer id = (Integer) claims.get("id");
+        userInfo.setId(Long.valueOf(id));
+        //3、调用service
+        userInfoService.save(userInfo);
+        return ResponseEntity.ok(null);
+    }
+}

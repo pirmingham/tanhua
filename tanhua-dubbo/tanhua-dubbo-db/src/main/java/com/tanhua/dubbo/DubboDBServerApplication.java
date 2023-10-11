@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 //mapper扫描
 @MapperScan("com.tanhua.dubbo.mapper")
-public class DubboServerApplication {
+public class DubboDBServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DubboServerApplication.class,args);
+        SpringApplication.run(DubboDBServerApplication.class,args);
     }
 }
